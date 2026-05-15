@@ -1,0 +1,101 @@
+<html>
+<!DOCTYPE html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="stylesheet" href="home.css">
+    <meta http-equiv="Content-Security-Policy"
+        content="img-src 'self' data: https://*.dropbox.com https://*.dropboxusercontent.com;">
+    <title>Famiglia Bertocco</title>
+</head>
+
+<body>
+    <div id="dashboard" style="display:block">
+        <h1>Famiglia Bertocco</h1>
+        <div id="main-container" class="bento">
+
+            <div class="card cardOra">
+                <div id="ora"></div>
+            </div>
+
+            <div class="card cardUmore" id="umore">
+                <span id="umoreTitle">COME TI SENTI OGGI?</span>
+                <div id="umori-container"></div>
+            </div>
+
+            <div class="card cardData" id="data">
+                <div class="data-header">
+                    <span id="dow"></span>
+                </div>
+                <div class="data-main">
+                    <span id="dayMese"></span>
+                </div>
+                <div class="data-footer">
+                    <span id="main_saint"></span>
+                </div>
+            </div>
+
+            <div class="card cardMeteo">
+                <div id="meteo-container">
+                    <div id="meteo_icon">
+                        <img src="" alt="">
+                        <span></span>
+                    </div>
+
+                    <div id="meteo_contenuto">
+                        <div class="meteo_riga">
+                            <span>San Benigno C.se</span>
+                        </div>
+                        <div class="meteo_riga">
+                            <img src="./assets/icons/temperature/ora.svg">
+                            <span class="temp-now"></span>
+                        </div>
+                        <div class="meteo_riga">
+                            <img src="./assets/icons/temperature/min.svg">
+                            <span class="temp-min"></span>
+                            <img src="./assets/icons/temperature/max.svg">
+                            <span class="temp-max"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card cardSunMoon">
+                <div class="sun-moon-container">
+                    <lottie-player id="sunMoonPlayer" src="./assets/Day to night.json" background="transparent"
+                        style="width:80%; height:80%;" count="1">
+                    </lottie-player>
+                    <div id="sun-info"></div>
+                </div>
+            </div>
+
+            <div class="card cardNext" id="next">
+                <span id="nextTitle">PREPARARSI A:</span>
+                <div id="next-container" class="next-container">
+                    <span id="next-auguri"></span>
+                    <span class="coriandolo">🎈</span>
+                    <span class="coriandolo">⭐</span>
+                    <span class="coriandolo">🎁</span>
+                    <span class="coriandolo">🎈</span>
+
+                    <span id="next-evento" class="next-evento"></span>
+                    <span id="next-data" class="next-data"></span>
+                </div>
+
+            </div>
+
+            <div class="card cardAppunti" id="appunti"></div>
+        </div>
+    </div>
+    <div id="fullscreen-slideshow" style="display:none"><img id="foto" src="" /></div>
+    <div id="nightdiv"
+        style="display:none; height:100vh; width:100vw; justify-content:center; align-items:center; background:#000;">
+        <h1 id="night-clock" style="color:#222; font-size:12rem; font-family:sans-serif;">00:00</h1>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
