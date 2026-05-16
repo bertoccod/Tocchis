@@ -53,7 +53,7 @@ initSunMoon();
 
 export function changeLayout(stato){
     let el_dash = document.getElementById("dashboard");
-    let el_slide = document.getElementById("fullscreen-slideshow");
+    let el_slide = document.getElementById("slideshow");
     let el_night = document.getElementById("nightdiv");
     el_dash.style.display = "none";
     el_slide.style.display = "none";
