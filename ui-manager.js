@@ -253,6 +253,9 @@ export async function updateDashboardSunMoon() {
 export async function caricaFoto(filename, orientamento) {
     const el_foto = document.getElementById("foto");
 
+    // Nascondo l'immagine per evitare flicker
+    el_foto.classList.add("hidden");
+
     // Reset animazione e trasformazioni
     el_foto.style.animation = "none";
     el_foto.style.transform = "none";
@@ -263,20 +266,25 @@ export async function caricaFoto(filename, orientamento) {
     // Rimuovo classi precedenti
     el_foto.classList.remove("pan-image", "foto-horizontal");
 
-    // Imposto subito il nuovo src
+    // Imposto il nuovo src
     el_foto.src = filename;
 
     // Aspetto che la nuova immagine sia caricata
     el_foto.onload = () => {
-        // Ora posso applicare la classe corretta
+
+        // Applico la classe corretta SOLO ora
         if (orientamento === "verticale") {
             el_foto.classList.add("pan-image");
-            el_foto.style.animation = ""; // riattiva animazione
+            el_foto.style.animation = "";
         } else {
             el_foto.classList.add("foto-horizontal");
         }
+
+        // Ora che è tutto pronto → mostro l'immagine
+        el_foto.classList.remove("hidden");
     };
 }
+
 
 
 

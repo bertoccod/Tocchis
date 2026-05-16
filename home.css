@@ -516,6 +516,7 @@ h1 {
   animation: pan 10s cubic-bezier(0.42, 0, 0.58, 1) 1 forwards;
   will-change: transform;
   backface-visibility: hidden;
+  transform: translateY(calc(-100% + 800px)); /* <-- AGGIUNTO */
 }
 .foto-horizontal {
     width: 100vw;
@@ -527,4 +528,7 @@ h1 {
 @keyframes pan {
   from { transform: translateY(0); }
   to {transform: translateY(calc(-100% + 800px)); }
+}
+.hidden {
+  opacity: 0;
 }
