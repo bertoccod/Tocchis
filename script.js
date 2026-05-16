@@ -35,7 +35,7 @@ export async function startAll(){
 
         // SLIDESHOW
         changeLayout("slide");
-        await safeRun(startSlide, 20000); // timeout 20s
+        await safeRun(startSlide, 60000); // timeout 20s
     }
 }
 
