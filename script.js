@@ -31,7 +31,7 @@ export async function startAll(){
         // DASHBOARD
         changeLayout("dash");
         await safeRun(startDashboard, 20000); // timeout 20s
-        await sleep(120000);
+        await sleep(5000);
 
         // SLIDESHOW
         changeLayout("slide");

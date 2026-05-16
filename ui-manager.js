@@ -259,35 +259,62 @@ export function caricaFoto(filename, orientamento) {
     const visibile = current === "A" ? fotoA : fotoB;
     const nascosta = current === "A" ? fotoB : fotoA;
 
+    console.log("---- CAMBIO FOTO ----");
+    console.log("Carico:", filename);
+    console.log("Orientamento:", orientamento);
+    console.log("Nascosta iniziale:", nascosta.className);
+
     // Nascondo quella nascosta
     nascosta.classList.add("hidden");
 
-    // Reset classi
+    // Reset classi e animazioni
     nascosta.classList.remove("pan-image", "foto-horizontal");
     nascosta.style.animation = "none";
     nascosta.style.transform = "none";
+
+    console.log("Dopo reset:", nascosta.className);
+
+    // Forzo reflow
+    void nascosta.offsetWidth;
 
     // Carico la nuova immagine sulla nascosta
     nascosta.src = filename;
 
     nascosta.onload = () => {
-        // Applico la classe corretta SOLO ora
+        console.log("Immagine caricata:", filename);
+        console.log("OffsetWidth:", nascosta.offsetWidth);
+
+        // Mostro l'immagine PRIMA di animarla
+        nascosta.classList.remove("hidden");
+        console.log("Dopo remove hidden:", nascosta.className);
+
+        // Forzo reflow
+        void nascosta.offsetWidth;
+
         if (orientamento === "verticale") {
             nascosta.classList.add("pan-image");
+            console.log("Aggiunta pan-image:", nascosta.className);
+
+            nascosta.style.animation = "none";
+            void nascosta.offsetWidth;
+            nascosta.style.animation = "";
         } else {
             nascosta.classList.add("foto-horizontal");
+            console.log("Aggiunta foto-horizontal:", nascosta.className);
         }
-
-        // Mostro la nuova
-        nascosta.classList.remove("hidden");
 
         // Nascondo la vecchia
         visibile.classList.add("hidden");
 
         // Switch buffer
         current = current === "A" ? "B" : "A";
+
+        console.log("Finale:", nascosta.className);
+        console.log("Animation:", getComputedStyle(nascosta).animationName);
     };
 }
+
+
 
 
 

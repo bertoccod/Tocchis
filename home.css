@@ -531,8 +531,16 @@ h1 {
 }
 
 .pan-image {
-  animation: pan 10s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;   /* ⭐ riempie tutta la larghezza */
+  height: auto;   /* ⭐ mantiene proporzioni verticali */
+  animation: pan 10s linear forwards;
 }
+
+
+
 
 .foto-horizontal {
   object-fit: contain;
@@ -541,5 +549,7 @@ h1 {
 
 @keyframes pan {
   from { transform: translateY(0); }
-  to { transform: translateY(calc(-100% + 800px)); }
+  to { transform: translateY(calc(-100% + 100vh)); }
 }
+
+
