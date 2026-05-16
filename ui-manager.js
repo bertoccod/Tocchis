@@ -250,40 +250,45 @@ export async function updateDashboardSunMoon() {
 
 
 //SLIDESHOW
-export async function caricaFoto(filename, orientamento) {
-    const el_foto = document.getElementById("foto");
+let current = "A";
 
-    // Nascondo l'immagine per evitare flicker
-    el_foto.classList.add("hidden");
+export function caricaFoto(filename, orientamento) {
+    const fotoA = document.getElementById("fotoA");
+    const fotoB = document.getElementById("fotoB");
 
-    // Reset animazione e trasformazioni
-    el_foto.style.animation = "none";
-    el_foto.style.transform = "none";
+    const visibile = current === "A" ? fotoA : fotoB;
+    const nascosta = current === "A" ? fotoB : fotoA;
 
-    // Forza reflow
-    void el_foto.offsetWidth;
+    // Nascondo quella nascosta
+    nascosta.classList.add("hidden");
 
-    // Rimuovo classi precedenti
-    el_foto.classList.remove("pan-image", "foto-horizontal");
+    // Reset classi
+    nascosta.classList.remove("pan-image", "foto-horizontal");
+    nascosta.style.animation = "none";
+    nascosta.style.transform = "none";
 
-    // Imposto il nuovo src
-    el_foto.src = filename;
+    // Carico la nuova immagine sulla nascosta
+    nascosta.src = filename;
 
-    // Aspetto che la nuova immagine sia caricata
-    el_foto.onload = () => {
-
+    nascosta.onload = () => {
         // Applico la classe corretta SOLO ora
         if (orientamento === "verticale") {
-            el_foto.classList.add("pan-image");
-            el_foto.style.animation = "";
+            nascosta.classList.add("pan-image");
         } else {
-            el_foto.classList.add("foto-horizontal");
+            nascosta.classList.add("foto-horizontal");
         }
 
-        // Ora che è tutto pronto → mostro l'immagine
-        el_foto.classList.remove("hidden");
+        // Mostro la nuova
+        nascosta.classList.remove("hidden");
+
+        // Nascondo la vecchia
+        visibile.classList.add("hidden");
+
+        // Switch buffer
+        current = current === "A" ? "B" : "A";
     };
 }
+
 
 
 
