@@ -250,20 +250,33 @@ export async function updateDashboardSunMoon() {
 
 
 //SLIDESHOW
-export async function caricaFoto(filename, orientamento){
+export async function caricaFoto(filename, orientamento) {
     const el_foto = document.getElementById("foto");
 
-    // Rimuovo le classi precedenti
+    // Reset animazione e trasformazioni
+    el_foto.style.animation = "none";
+    el_foto.style.transform = "none";
+
+    // Forza reflow
+    void el_foto.offsetWidth;
+
+    // Rimuovo classi precedenti
     el_foto.classList.remove("pan-image", "foto-horizontal");
 
-    // Aggiungo quella corretta
-    if (orientamento === "verticale") {
-        el_foto.classList.add("pan-image");
-    } else {
-        el_foto.classList.add("foto-horizontal");
-    }
-
-    el_foto.referrerPolicy = "no-referrer";
+    // Imposto subito il nuovo src
     el_foto.src = filename;
+
+    // Aspetto che la nuova immagine sia caricata
+    el_foto.onload = () => {
+        // Ora posso applicare la classe corretta
+        if (orientamento === "verticale") {
+            el_foto.classList.add("pan-image");
+            el_foto.style.animation = ""; // riattiva animazione
+        } else {
+            el_foto.classList.add("foto-horizontal");
+        }
+    };
 }
+
+
 
