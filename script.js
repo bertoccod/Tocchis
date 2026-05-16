@@ -8,7 +8,7 @@ const isNightTime = () => {
     const ora = new Date().getHours();
     const minuti = new Date().getMinutes();
     const totaleMinuti = ora * 60 + minuti;
-    return totaleMinuti >= 0 && totaleMinuti < 330;
+    return totaleMinuti >= 60 && totaleMinuti < 330;
 };
 
 /*
