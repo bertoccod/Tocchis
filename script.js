@@ -4,17 +4,17 @@ import { startSlide } from "./slideshow.js";
 import {aggiornaOrologioNotturno} from "./night_mode.js";
 import {resetTuttiUmori} from "./fb_functions.js";
 
-/*const isNightTime = () => {
+const isNightTime = () => {
     const ora = new Date().getHours();
     const minuti = new Date().getMinutes();
     const totaleMinuti = ora * 60 + minuti;
     return totaleMinuti >= 60 && totaleMinuti < 330;
-};*/
+};
 
-
+/*
 const isNightTime = () => {
     return false; 
-};
+};*/
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 export async function startAll(){
