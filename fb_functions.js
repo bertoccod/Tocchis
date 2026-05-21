@@ -85,3 +85,17 @@ export function getListFile(callback){
         }
     });
 }
+
+export function getNightDay(callback) {
+    const fileRef = ref(db, 'night/stato');
+    get(fileRef).then(snap => callback(snap.val()));
+}
+
+
+
+export function setNightDay(valore) {
+    return update(ref(db, 'night'), { stato: valore });
+}
+
+
+

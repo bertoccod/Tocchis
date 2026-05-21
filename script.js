@@ -2,14 +2,36 @@ import {startDashboard } from "./dashboard.js";
 import {updateDashboardSunMoon} from "./ui-manager.js";
 import { startSlide } from "./slideshow.js";
 import {aggiornaOrologioNotturno} from "./night_mode.js";
-import {resetTuttiUmori} from "./fb_functions.js";
+import {resetTuttiUmori, getNightDay, setNightDay} from "./fb_functions.js";
 
-const isNightTime = () => {
-    const ora = new Date().getHours();
-    const minuti = new Date().getMinutes();
-    const totaleMinuti = ora * 60 + minuti;
-    return totaleMinuti >= 60 && totaleMinuti < 330;
-};
+export function isNightTime() {
+    return new Promise((resolve) => {
+        const ora = new Date().getHours();
+        const minuti = new Date().getMinutes();
+        const totale = ora * 60 + minuti;
+
+        // Fascia notte automatica
+        if (totale >= 60 && totale < 330) {
+            setNightDay("on");
+            resolve(true);
+            return;
+        }
+
+        // Fuori fascia → leggo manuale
+        getNightDay((manuale) => {
+            if (manuale === "on") {
+                resolve(true);
+            } else {
+                setNightDay("off");
+                resolve(false);
+            }
+        });
+    });
+}
+
+
+
+
 
 /*
 const isNightTime = () => {
@@ -17,27 +39,33 @@ const isNightTime = () => {
 };*/
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-export async function startAll(){
-    while(true){
+export async function startAll() {
+    while (true) {
 
-        if (isNightTime()) {
+        const isNight = await isNightTime();
+
+        if (isNight) {
             changeLayout("night");
+
+            // ⭐ L’orologio viene aggiornato OGNI ciclo
             aggiornaOrologioNotturno();
             resetTuttiUmori();
+
             await sleep(60000);
             continue;
         }
 
-        // DASHBOARD
+        // DAY MODE
         changeLayout("dash");
-        await safeRun(startDashboard, 20000); // timeout 20s
+        await safeRun(startDashboard, 20000);
         await sleep(120000);
 
-        // SLIDESHOW
         changeLayout("slide");
-        await safeRun(startSlide, 60000); // timeout 20s
+        await safeRun(startSlide, 60000);
     }
 }
+
+
 
 let sunMoonInterval = null;
 
