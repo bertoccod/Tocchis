@@ -4,17 +4,17 @@ import { startSlide } from "./slideshow.js";
 import {aggiornaOrologioNotturno} from "./night_mode.js";
 import {resetTuttiUmori} from "./fb_functions.js";
 
-const isNightTime = () => {
+/*const isNightTime = () => {
     const ora = new Date().getHours();
     const minuti = new Date().getMinutes();
     const totaleMinuti = ora * 60 + minuti;
-    return totaleMinuti >= 0 && totaleMinuti < 330;
-};
-
-/*
-const isNightTime = () => {
-    return true; // Forza la modalità notte SEMPRE
+    return totaleMinuti >= 60 && totaleMinuti < 330;
 };*/
+
+
+const isNightTime = () => {
+    return false; 
+};
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 export async function startAll(){
@@ -61,8 +61,12 @@ export function changeLayout(stato){
 
     if (stato === "slide") {
         el_slide.style.display = "block";
+        document.body.style.backgroundColor = "";
+        document.documentElement.style.setProperty('--bg-page', '');
     } else if (stato === "dash") {
         el_dash.style.display = "block";
+        document.body.style.backgroundColor = "";
+        document.documentElement.style.setProperty('--bg-page', '');
     } else if (stato === "night") {
         if(el_night) el_night.style.display = "flex";
         document.body.style.backgroundColor = "black";
