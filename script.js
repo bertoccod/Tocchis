@@ -10,22 +10,19 @@ export function isNightTime() {
         const minuti = new Date().getMinutes();
         const totale = ora * 60 + minuti;
 
-        // Fascia notte automatica
         if (totale >= 60 && totale < 330) {
-            setNightDay("on");
+            setNightDay("off");
             resolve(true);
-            return;
+        } else {
+            getNightDay((manuale) => {
+                if (manuale === "on") {
+                    resolve(true);
+                } else {
+                    setNightDay("off");
+                    resolve(false);
+                }
+            });
         }
-
-        // Fuori fascia → leggo manuale
-        getNightDay((manuale) => {
-            if (manuale === "on") {
-                resolve(true);
-            } else {
-                setNightDay("off");
-                resolve(false);
-            }
-        });
     });
 }
 
